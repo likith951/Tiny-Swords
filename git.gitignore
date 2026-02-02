@@ -1,0 +1,21 @@
+# Build outputs
+*.exe
+*.dll
+*.obj
+*.o
+bin/
+build/
+Debug/
+Release/
+x64/
+x86/
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.sln.docstates
+
+# Temporary files
+*.tmp
+*.log
