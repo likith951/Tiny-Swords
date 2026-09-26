@@ -18,7 +18,7 @@ bool Check_Collision(Player *player,std::vector<Enemy>&enemies)
 		}
 	}
 	return iscolliding;
-		 
+
 }
 
 std::vector<Enemy*> Check_Hit(Player* player,std::vector<Enemy> &enemies)
@@ -39,7 +39,7 @@ std::vector<Enemy*> Check_Hit(Player* player,std::vector<Enemy> &enemies)
 		 else enemy.iscolliding = false;
 
 	 }
-	
+
 }
 std::vector<Enemy*> Check_Enemy_Hit(std::vector<Enemy>& enemies, Player* player)
 {
@@ -65,12 +65,11 @@ void E2Ecollision(std::vector<Enemy>& enemies)
 
 				float distI = Vector2Length(Vector2Subtract(enemies[i].playerPos, enemies[i].pos));
 				float distJ = Vector2Length(Vector2Subtract(enemies[j].playerPos, enemies[j].pos));
-				std::cout << i << j;
 				if (distI >= distJ)
 				{
 					enemies[i].iscollidingE = true;
 					enemies[i].lastCollodied = GetTime();
-					
+
 				}
 
 				else
@@ -85,36 +84,3 @@ void E2Ecollision(std::vector<Enemy>& enemies)
 
 	}
 }
-
-
-
-
-/*
-
-	for (Enemy& e : enemies)
-		e.iscollidingE = false;
-	for (int i =0;i<enemies.size();i++)
-	{
-		for (int j= i+1;j<enemies.size();j++)
-
-			if (CheckCollisionRecs(enemies[i].getHitBox(), enemies[j].nxtFrameBox())||CheckCollisionRecs(enemies[j].getHitBox(), enemies[i].nxtFrameBox()))
-			{
-
-				float distI = Vector2Length(Vector2Subtract(enemies[i].playerPos,enemies[i].pos));
-				float distJ = Vector2Length(Vector2Subtract(enemies[j].playerPos, enemies[j].pos));
-
-				if (distI > distJ)
-				{
-					enemies[i].iscollidingE = true;
-				}
-
-				else
-				{
-					enemies[j].iscollidingE = true;
-				}
-
-			}
-
-	}*/
-
-

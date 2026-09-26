@@ -7,7 +7,7 @@ enum class State {
 	Idle,
 	Running,
 	Attacking,
-	Dying 
+	Dying
 };
 
 class Player {
@@ -19,8 +19,8 @@ private:
 	int frameWidth = 8;
 	int Hdir = 1;
 	int Vdir = 1;
-	
-	
+
+
 public:
 	Vector2 pos;
 	Texture2D IdleTex;
@@ -30,7 +30,7 @@ public:
 	State Pstate;
 	int Health = 100;
 	int ALIVE = true;
-	bool isColliding = false;	
+	bool isColliding = false;
 	int x=0;
 	float attackCooldown = 0.75f; // Cooldown time in seconds
 	float lastAttackTime = 0.0f; // Time of the last attack
@@ -59,7 +59,7 @@ public:
 		{
 			return{ pos.x + (Hdir * 10 * speed * GetFrameTime()) + ((texture.width / frameWidth) / 3), pos.y  + texture.height / 2, (float(texture.width) / float(frameWidth)) / 4, float(texture.height) / 5 };
 		}
-		
+
 		return { pos.x+(Hdir*10*speed*GetFrameTime()) + ((texture.width / frameWidth) / 3), pos.y + (-Hdir * dirY * 10 * speed * GetFrameTime()) + texture.height / 2, (float(texture.width) / float(frameWidth)) / 4, float(texture.height) / 5 };
 	}
 	Rectangle getHurtBox()
@@ -67,7 +67,7 @@ public:
 		Rectangle rightrec= { pos.x + ((texture.width / frameWidth) / 1.5f),pos.y + float(texture.height / 4), float(texture.height) / 5 , (float(texture.width) / float(frameWidth) / 2) };
 		Rectangle leftrec= { pos.x + ((texture.width / frameWidth) / 7),pos.y + float(texture.height / 4), float(texture.height) / 5 , (float(texture.width) / float(frameWidth) / 2) };
 		Rectangle bottomrec = { pos.x + ((texture.width / frameWidth) / 4),pos.y + float(texture.height / 1.5), (float(texture.width) / float(frameWidth) / 2) , float(texture.height) / 5 };
-		
+
 		if (direction.x>0)
 		{
 			return rightrec;
@@ -153,7 +153,7 @@ void Player::takeHit(float damageDelt)
 		}
 	}
 
-}	
+}
 void Player::UpdateState() {
 	// Update player state based on input or other conditions
 	switch (Pstate)
@@ -225,18 +225,18 @@ void Player::Update() {
 			Pstate = State::Running;
 		}
 		canGetHit = (lastHitTime + invincibility <= GetTime()) ? true : false;
-		UpdateState(); 
+		UpdateState();
 	}
 
-}	
+}
 
 
 /*
-	Game Stat:TO BE IMPLEMENTED
+	Game State:
 	Idle Animation:8 frames
 	Running Animation:6 frames
 	Attacking Animation:4 frames
-	Guarding Animation:To be Added 
+	Guarding Animation:To be Added
 
 	Idle State: When no movement keys are pressed, the player is idle.
 	Running State: When movement keys (WASD) are pressed, the player runs in the corresponding direction.

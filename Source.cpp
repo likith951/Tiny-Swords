@@ -1,6 +1,7 @@
 #include "Header.h"
 #include"Enemy.h"
 #include"GameManager.h"
+#include <raylib.h>
 #include<string>
 #include <vector>
 #include<random>
@@ -16,9 +17,9 @@ void EnemyRenderBeginPlay()
 {
 	for (Enemy& enemy : enemies)
 	{
-		enemy.IdleTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Enemy\\Warrior_Idle.png");
-		enemy.AttackTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Enemy\\Warrior_Attack2.png");
-		enemy.RunTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Enemy\\Warrior_Run.png");
+		enemy.IdleTex = LoadTexture("Enemy/Warrior_Idle.png");
+		enemy.AttackTex = LoadTexture("Enemy/Warrior_Attack2.png");
+		enemy.RunTex = LoadTexture("Enemy/Warrior_Run.png");
 
 	}
 }
@@ -31,7 +32,7 @@ void spawnEnemies(Texture2D enemyTex,Player &player)
 		{
 			enemies.erase(enemies.begin() + i);
 		}
-		
+
 	}
 	if (enemies.empty())
 	{
@@ -44,7 +45,7 @@ void spawnEnemies(Texture2D enemyTex,Player &player)
 			enemies.emplace_back(enemyTex, Vector2{ randX,randY }, 100.0f);
 
 		}
-		if (WaveNo % 5 == 0)
+		if (WaveNo % 3 == 0)
 		{
 			player.Health = 100;
 		}
@@ -80,23 +81,26 @@ void EnemyRender(Player &player)
 	E2Ecollision(enemies);
 }
 int main() {
-	
+
 	InitWindow(1950, 1080, "Raylib Window");
-	Texture2D enemyTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Enemy\\Warrior_Idle.png");
+	int monitor = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(monitor),GetMonitorHeight(monitor));
+    ToggleFullscreen();
+	Texture2D enemyTex = LoadTexture("Enemy/Warrior_Idle.png");
 	SetTargetFPS(120);
-	Texture2D tex= LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Warrior_Idle.png");
+	Texture2D tex= LoadTexture("player/Warrior_Idle.png");
 	Player player(tex,{100,100}, 300.0f);
-	player.IdleTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Warrior_Idle.png");
-	player.AttackTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Warrior_Attack2.png");
-	player.RunTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Warrior_Run.png");
-	player.GuardTex = LoadTexture("C:\\Projects\\C++\\Raylib Projects\\TinySword\\Warrior_Guard.png");
+	player.IdleTex = LoadTexture("player/Warrior_Idle.png");
+	player.AttackTex = LoadTexture("player/Warrior_Attack2.png");
+	player.RunTex = LoadTexture("player/Warrior_Run.png");
+	player.GuardTex = LoadTexture("player/Warrior_Guard.png");
 
 	//Enemy
 	srand(time(NULL));
-	
-	
 
-	
+
+
+
 	int currentFrame = 0;
 	int currentframe = 0;
 	int x = 0;
@@ -119,7 +123,7 @@ int main() {
 			EndDrawing();
 			break;
 		}
-		
+
 		case GameState::Game:
 		{
 			int Fps = GetFPS();
@@ -133,11 +137,11 @@ int main() {
 			const char* fpsCStr = fpsString.c_str();
 			BeginDrawing();
 			ClearBackground(BEIGE);
-			DrawText(fpsCStr, 0, 0, 20, LIGHTGRAY);
+			DrawText(fpsCStr, 0, 0, 30, GREEN);
 			player.isColliding = Check_Collision(&player, enemies);
 			player.Update();
 			player.Draw(currentFrame, x);
-			DrawText(std::to_string(player.Health).c_str(), 0, 110, 20, RED);
+			DrawText(std::to_string(player.Health).c_str(), GetScreenWidth()-50,0, 30, RED);
 			DrawText(std::to_string(WaveNo).c_str(), GetScreenWidth() / 2, 0, 50, LIGHTGRAY);
 			if (!player.ALIVE)
 			{
@@ -145,7 +149,7 @@ int main() {
 			}
 			if (player.Health <= 30)
 			{
-				DrawText("Heal will be granted after every 5 rounds", 0, GetScreenHeight()-30, 20, RED);
+				DrawText("Warrior heals to full HP after every 3 rounds", 0, GetScreenWidth()-30, 20, RED);
 			}
 
 			EndDrawing();
@@ -160,7 +164,7 @@ int main() {
 			EndDrawing();
 			break;
 		}
-			
+
 		default:
 			break;
 		}
@@ -169,11 +173,3 @@ int main() {
 	CloseWindow();
 	return 0;
 }
-
-
-
-
-//DBUG THIS LATER
-/*
-	
-*/
